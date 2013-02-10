@@ -91,14 +91,15 @@ class SignupsController extends AppController {
 			throw new MethodNotAllowedException();
 		}
 		$this->Signup->id = $id;
+        $tournament = $this->Signup->field('tournament_id');
 		if (!$this->Signup->exists()) {
 			throw new NotFoundException(__('Invalid signup'));
 		}
-		if ($this->Signup->delete()) {
-			$this->Session->setFlash(__('Signup deleted'));
-			$this->redirect(array('action' => 'index'));
-		}
-		$this->Session->setFlash(__('Signup was not deleted'));
-		$this->redirect(array('action' => 'index'));
-	}
+        if ($this->Signup->delete()) {
+            $this->Session->setFlash(__('Signup deleted'));
+            $this->redirect(array('action' => 'index', $tournament));
+        }
+        $this->Session->setFlash(__('Signup was not deleted'));
+        $this->redirect(array('action' => 'index', $tournament));
+    }
 }

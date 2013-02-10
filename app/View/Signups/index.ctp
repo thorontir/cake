@@ -11,7 +11,7 @@
 			<?php echo $this->Html->link($signup['User']['name'], array('controller' => 'users', 'action' => 'view', $signup['User']['id'])); ?>
 		</td>
 		<td class="actions">
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $signup['Signup']['id']), null, __('Are you sure you want to delete # %s?', $signup['Signup']['id'])); ?>
+			<?php echo $this->Form->postLink(__('Unsign'), array('action' => 'delete', $signup['Signup']['id']), null, __('Are you sure you want to delete # %s?', $signup['Signup']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
