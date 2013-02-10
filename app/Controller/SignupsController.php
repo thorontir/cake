@@ -62,39 +62,40 @@ class SignupsController extends AppController {
  */
 	public function edit($id = null) {
 		$this->Signup->id = $id;
+        $tournament = $this->Signup->field('tournament_id');
 		if (!$this->Signup->exists()) {
 			throw new NotFoundException(__('Invalid signup'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Signup->save($this->request->data)) {
-				$this->Session->setFlash(__('The signup has been saved'));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The signup could not be saved. Please, try again.'));
-			}
-		} else {
-			$this->request->data = $this->Signup->read(null, $id);
-		}
-		$tournaments = $this->Signup->Tournament->find('list');
-		$users = $this->Signup->User->find('list');
-		$this->set(compact('tournaments', 'users'));
-	}
+                $this->Session->setFlash(__('The signup has been saved'));
+                $this->redirect(array('action' => 'index', $tournament));
+            } else {
+                $this->Session->setFlash(__('The signup could not be saved. Please, try again.'));
+            }
+        } else {
+            $this->request->data = $this->Signup->read(null, $id);
+        }
+        $tournaments = $this->Signup->Tournament->find('list');
+        $users = $this->Signup->User->find('list');
+        $this->set(compact('tournaments', 'users'));
+    }
 
-/**
- * delete method
- *
- * @param string $id
- * @return void
- */
-	public function delete($id = null) {
-		if (!$this->request->is('post')) {
-			throw new MethodNotAllowedException();
-		}
-		$this->Signup->id = $id;
+    /**
+     * delete method
+     *
+     * @param string $id
+     * @return void
+     */
+    public function delete($id = null) {
+        if (!$this->request->is('post')) {
+            throw new MethodNotAllowedException();
+        }
+        $this->Signup->id = $id;
         $tournament = $this->Signup->field('tournament_id');
-		if (!$this->Signup->exists()) {
-			throw new NotFoundException(__('Invalid signup'));
-		}
+        if (!$this->Signup->exists()) {
+            throw new NotFoundException(__('Invalid signup'));
+        }
         if ($this->Signup->delete()) {
             $this->Session->setFlash(__('Signup deleted'));
             $this->redirect(array('action' => 'index', $tournament));
