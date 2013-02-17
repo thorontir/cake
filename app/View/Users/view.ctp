@@ -1,21 +1,6 @@
 <div class="users view">
 <h2><?php  echo __('User');?></h2>
 	<dl>
-		<dt><?php echo __('Id'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['id']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Created'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['created']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Modified'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['modified']); ?>
-			&nbsp;
-		</dd>
 		<dt><?php echo __('Lastlogin'); ?></dt>
 		<dd>
 			<?php echo h($user['User']['lastlogin']); ?>
@@ -36,11 +21,6 @@
 			<?php echo h($user['User']['username']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Password'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['password']); ?>
-			&nbsp;
-		</dd>
 		<dt><?php echo __('Bnetaccount'); ?></dt>
 		<dd>
 			<?php echo h($user['User']['bnetaccount']); ?>
@@ -54,11 +34,6 @@
 		<dt><?php echo __('Race'); ?></dt>
 		<dd>
 			<?php echo h($user['User']['race']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Admin'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['admin']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Elo'); ?></dt>
@@ -78,18 +53,11 @@
 	<ul>
 		<li><?php echo $this->Html->link(__('Edit User'), array('action' => 'edit', $user['User']['id'])); ?> </li>
 		<li><?php echo $this->Form->postLink(__('Delete User'), array('action' => 'delete', $user['User']['id']), null, __('Are you sure you want to delete # %s?', $user['User']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Users'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User'), array('action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Comments'), array('controller' => 'comments', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Comment'), array('controller' => 'comments', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Posts'), array('controller' => 'posts', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Post'), array('controller' => 'posts', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Rankings'), array('controller' => 'rankings', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Ranking'), array('controller' => 'rankings', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Signups'), array('controller' => 'signups', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Signup'), array('controller' => 'signups', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Tournaments'), array('controller' => 'tournaments', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Thread'), array('controller' => 'threads', 'action' => 'add')); ?></li>
 		<li><?php echo $this->Html->link(__('New Tournament'), array('controller' => 'tournaments', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Tournaments'), array('controller' => 'tournaments', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('View Forum'), array('controller' => 'threads', 'action' => 'index')); ?></li>
 	</ul>
 </div>
 <div class="related">
