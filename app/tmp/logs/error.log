@@ -195,3 +195,10 @@
 #3 /srv/http/cake/lib/Cake/Routing/Dispatcher.php(85): Dispatcher->_invoke(Object(SignupsController), Object(CakeRequest), Object(CakeResponse))
 #4 /srv/http/cake/app/webroot/index.php(98): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #5 {main}
+2013-02-17 13:41:57 Error: [NotFoundException] Invalid user
+#0 [internal function]: UsersController->view()
+#1 /srv/http/cake/lib/Cake/Controller/Controller.php(488): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#2 /srv/http/cake/lib/Cake/Routing/Dispatcher.php(103): Controller->invokeAction(Object(CakeRequest))
+#3 /srv/http/cake/lib/Cake/Routing/Dispatcher.php(85): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
+#4 /srv/http/cake/app/webroot/index.php(98): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
