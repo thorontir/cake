@@ -3,18 +3,13 @@
 	<fieldset>
 		<legend><?php echo __('Add User'); ?></legend>
 	<?php
-		echo $this->Form->input('lastlogin');
 		echo $this->Form->input('name');
 		echo $this->Form->input('email');
 		echo $this->Form->input('username');
-		echo $this->Form->input('password');
-		echo $this->Form->input('bnetaccount');
-		echo $this->Form->input('bnetcode');
-		echo $this->Form->input('race');
-		echo $this->Form->input('admin');
-		echo $this->Form->input('elo');
-		echo $this->Form->input('division');
-		echo $this->Form->input('Tournament');
+        echo $this->Form->input('password', array('type' => 'password'));
+		echo $this->Form->input('bnetaccount', array('label' => 'Battle.net Account'));
+		echo $this->Form->input('bnetcode', array('label' => 'Battle.net Character Code'));
+        echo $this->Form->input('race', array('options' => array("Terran","Protoss","Zerg","Random",)));
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>

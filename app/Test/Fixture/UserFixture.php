@@ -37,9 +37,9 @@ class UserFixture extends CakeTestFixture {
 	public $records = array(
 		array(
 			'id' => 1,
-			'created' => '2013-02-17 12:30:17',
-			'modified' => '2013-02-17 12:30:17',
-			'lastlogin' => '2013-02-17 12:30:17',
+			'created' => '2013-02-18 19:22:25',
+			'modified' => '2013-02-18 19:22:25',
+			'lastlogin' => '2013-02-18 19:22:25',
 			'name' => 'Lorem ipsum dolor sit amet',
 			'email' => 'Lorem ipsum dolor sit amet',
 			'username' => 'Lorem ipsum dolor sit amet',
