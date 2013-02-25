@@ -15,6 +15,11 @@ class User extends AppModel {
  *
  * @var string
  */
+
+    public function isOwnedBy($userId, $user) {
+        return $userId === $user;
+    }
+
     // Password hashing
     public function beforeSave($options = array()) {
         if (isset($this->data[$this->alias]['password'])) {

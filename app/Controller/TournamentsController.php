@@ -13,6 +13,17 @@ class TournamentsController extends AppController {
  *
  * @return void
  */
+    public function isAuthorized($user) {
+        // All registered users can add posts
+        if (in_array($this->action, array('index', 'view'))) {
+            return true;
+        }
+
+
+        return parent::isAuthorized($user);
+
+    }
+
 	public function index() {
 		$this->Tournament->recursive = 0;
 		$this->set('tournaments', $this->paginate());

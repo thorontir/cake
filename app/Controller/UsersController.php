@@ -10,6 +10,25 @@ class UsersController extends AppController {
     public $name = 'Users';
     public $uses = array('User');
 
+    public function isAuthorized($user) {
+        // All registered users can add posts
+        if (in_array($this->action, array('index', 'view'))) {
+            return true;
+        }
+
+        // The owner of a post can edit and delete it
+        if (in_array($this->action, array('edit', 'delete'))) {
+            $userId = $this->request->params['pass'][0];
+            if ($this->User->isOwnedBy($userId, $user['id'])) {
+                return true;
+            }
+        }
+        
+
+        return parent::isAuthorized($user);
+
+    }
+
     // Pass settings in $components array
     public $components = array(
         'Auth' => array(
@@ -23,7 +42,7 @@ class UsersController extends AppController {
     );
 
     public function beforeFilter() {
-        $this->Auth->allow('add');
+        $this->Auth->allow('add', 'login', 'logout');
     }
 
     public function login() {
@@ -79,7 +98,7 @@ class UsersController extends AppController {
 			}
             if ($this->User->save($this->request->data)) {
                 $this->Session->setFlash(__('The user has been saved'));
-                $this->redirect(array('action' => 'index'));
+                $this->redirect(array('action' => 'login'));
             } else {
                 $this->Session->setFlash(__('The user could not be saved. Please, try again.'));
             }

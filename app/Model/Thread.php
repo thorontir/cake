@@ -11,6 +11,11 @@ class Thread extends AppModel {
  *
  * @var string
  */
+    public function isOwnedBy($threadId, $user) {
+        //return $this->field('id', $userId) === $user;
+        return true;
+    }
+
 	public $displayField = 'title';
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed

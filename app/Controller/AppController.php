@@ -36,11 +36,24 @@ class AppController extends Controller {
         'Session',
         'Auth' => array(
             'loginRedirect' => array('controller' => 'threads', 'action' => 'index'),
-            'logoutRedirect' => array('controller' => 'users', 'action' => 'login')
+            'logoutRedirect' => array('controller' => 'users', 'action' => 'login'),
+            'authorize' => array('Controller')
         )
     );
 
     public function beforeFilter() {
         $this->Auth->deny('*');
     }
+
+    public function isAuthorized($user) {
+    // Admin can access every action
+    if (isset($user['admin']) && $user['admin'] === true) {
+        return true;
+    }
+
+    // Default deny
+    $this->Session->setFlash(__('You are not allowed to do this'));
+    return false;
+}
+
 }

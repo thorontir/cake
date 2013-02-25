@@ -13,6 +13,24 @@ class ThreadsController extends AppController {
  *
  * @return void
  */
+    public function isAuthorized($user) {
+        // All registered users can add posts
+        if (in_array($this->action, array('index', 'view'))) {
+            return true;
+        }
+
+        // The owner of a post can edit and delete it
+        if (in_array($this->action, array('edit', 'delete'))) {
+            $threadId = $this->request->params['pass'][0];
+            if ($this->Thread->isOwnedBy($threadId, $user['id'])) {
+                return true;
+            }
+        }
+
+        return parent::isAuthorized($user);
+
+    }
+
 	public function index() {
 		$this->Thread->recursive = 0;
 		$this->set('threads', $this->paginate());

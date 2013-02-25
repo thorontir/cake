@@ -14,6 +14,10 @@ class Tournament extends AppModel {
  *
  * @var array
  */
+    public function isOwnedBy($userId, $user) {
+        return $userId === $user;
+    }
+
 	public $validate = array(
 		'name' => array(
 			'notempty' => array(

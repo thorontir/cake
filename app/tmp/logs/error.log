@@ -195,3 +195,50 @@
 #3 /srv/http/cake/lib/Cake/Routing/Dispatcher.php(85): Dispatcher->_invoke(Object(SignupsController), Object(CakeRequest), Object(CakeResponse))
 #4 /srv/http/cake/app/webroot/index.php(98): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #5 {main}
+2013-02-25 17:03:35 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+#0 /var/www/cake/lib/Cake/Model/ConnectionManager.php(101): DboSource->__construct(Array)
+#1 /var/www/cake/lib/Cake/Model/Model.php(3354): ConnectionManager::getDataSource('default')
+#2 /var/www/cake/lib/Cake/Model/Model.php(1085): Model->setDataSource('default')
+#3 /var/www/cake/lib/Cake/Model/Model.php(3380): Model->setSource('users')
+#4 /var/www/cake/lib/Cake/Model/Model.php(1278): Model->getDataSource()
+#5 /var/www/cake/lib/Cake/View/Helper/FormHelper.php(191): Model->schema()
+#6 /var/www/cake/lib/Cake/View/Helper/FormHelper.php(444): FormHelper->_introspectModel('User', 'fields')
+#7 /var/www/cake/app/View/Users/login.ctp(4): FormHelper->create('User')
+#8 /var/www/cake/lib/Cake/View/View.php(908): include('/var/www/cake/a...')
+#9 /var/www/cake/lib/Cake/View/View.php(872): View->_evaluate('/var/www/cake/a...', Array)
+#10 /var/www/cake/lib/Cake/View/View.php(463): View->_render('/var/www/cake/a...')
+#11 /var/www/cake/lib/Cake/Controller/Controller.php(962): View->render(NULL, NULL)
+#12 /var/www/cake/lib/Cake/Routing/Dispatcher.php(110): Controller->render()
+#13 /var/www/cake/lib/Cake/Routing/Dispatcher.php(85): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
+#14 /var/www/cake/app/webroot/index.php(98): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2013-02-25 17:12:09 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+#0 /var/www/cake/lib/Cake/Model/ConnectionManager.php(101): DboSource->__construct(Array)
+#1 /var/www/cake/lib/Cake/Model/Model.php(3354): ConnectionManager::getDataSource('default')
+#2 /var/www/cake/lib/Cake/Model/Model.php(1085): Model->setDataSource('default')
+#3 /var/www/cake/lib/Cake/Model/Model.php(3380): Model->setSource('users')
+#4 /var/www/cake/lib/Cake/Model/Model.php(1278): Model->getDataSource()
+#5 /var/www/cake/lib/Cake/View/Helper/FormHelper.php(191): Model->schema()
+#6 /var/www/cake/lib/Cake/View/Helper/FormHelper.php(444): FormHelper->_introspectModel('User', 'fields')
+#7 /var/www/cake/app/View/Users/login.ctp(4): FormHelper->create('User')
+#8 /var/www/cake/lib/Cake/View/View.php(908): include('/var/www/cake/a...')
+#9 /var/www/cake/lib/Cake/View/View.php(872): View->_evaluate('/var/www/cake/a...', Array)
+#10 /var/www/cake/lib/Cake/View/View.php(463): View->_render('/var/www/cake/a...')
+#11 /var/www/cake/lib/Cake/Controller/Controller.php(962): View->render(NULL, NULL)
+#12 /var/www/cake/lib/Cake/Routing/Dispatcher.php(110): Controller->render()
+#13 /var/www/cake/lib/Cake/Routing/Dispatcher.php(85): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
+#14 /var/www/cake/app/webroot/index.php(98): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2013-02-25 17:48:57 Error: [MissingControllerException] Controller class LoginController could not be found.
+#0 /var/www/cake/app/webroot/index.php(98): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2013-02-25 19:14:22 Error: [MissingActionException] Action ThreadsController::logout() could not be found.
+#0 /var/www/cake/lib/Cake/Routing/Dispatcher.php(103): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cake/lib/Cake/Routing/Dispatcher.php(85): Dispatcher->_invoke(Object(ThreadsController), Object(CakeRequest), Object(CakeResponse))
+#2 /var/www/cake/app/webroot/index.php(98): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2013-02-25 20:11:37 Error: [MissingActionException] Action ThreadsController::logout() could not be found.
+#0 /var/www/cake/lib/Cake/Routing/Dispatcher.php(103): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cake/lib/Cake/Routing/Dispatcher.php(85): Dispatcher->_invoke(Object(ThreadsController), Object(CakeRequest), Object(CakeResponse))
+#2 /var/www/cake/app/webroot/index.php(98): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
