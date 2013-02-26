@@ -247,3 +247,20 @@
 #1 /var/www/cake/lib/Cake/Routing/Dispatcher.php(85): Dispatcher->_invoke(Object(ThreadsController), Object(CakeRequest), Object(CakeResponse))
 #2 /var/www/cake/app/webroot/index.php(98): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #3 {main}
+2013-02-26 16:01:48 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'test1@test.de' for key 'email'
+#0 /var/www/cake/lib/Cake/Model/Datasource/DboSource.php(436): PDOStatement->execute(Array)
+#1 /var/www/cake/lib/Cake/Model/Datasource/DboSource.php(403): DboSource->_execute('INSERT INTO `ca...', Array)
+#2 /var/www/cake/lib/Cake/Model/Datasource/DboSource.php(984): DboSource->execute('INSERT INTO `ca...')
+#3 /var/www/cake/lib/Cake/Model/Model.php(1705): DboSource->create(Object(User), Array, Array)
+#4 /var/www/cake/app/Controller/UsersController.php(99): Model->save(Array)
+#5 [internal function]: UsersController->add()
+#6 /var/www/cake/lib/Cake/Controller/Controller.php(488): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#7 /var/www/cake/lib/Cake/Routing/Dispatcher.php(103): Controller->invokeAction(Object(CakeRequest))
+#8 /var/www/cake/lib/Cake/Routing/Dispatcher.php(85): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
+#9 /var/www/cake/app/webroot/index.php(98): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#10 {main}
+2013-02-26 17:04:26 Error: [MissingActionException] Action ThreadsController::logout() could not be found.
+#0 /var/www/cake/lib/Cake/Routing/Dispatcher.php(103): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/cake/lib/Cake/Routing/Dispatcher.php(85): Dispatcher->_invoke(Object(ThreadsController), Object(CakeRequest), Object(CakeResponse))
+#2 /var/www/cake/app/webroot/index.php(98): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}

@@ -16,6 +16,20 @@ class User extends AppModel {
  * @var string
  */
 
+   public function password_match() {
+       // unhashed whil add
+        if (isset($this->data[$this->alias]['password']) && isset($this->data[$this->alias]['password_validate']) &&  $this->data[$this->alias]['password'] === $this->data[$this->alias]['password_validate']) {
+            return true;
+        }
+        // hashed while edit
+        $password_confirm = AuthComponent::password($this->data[$this->alias]['password_validate']);
+        if (isset($this->data[$this->alias]['password']) && isset($this->data[$this->alias]['password_validate']) &&  $this->data[$this->alias]['password'] === $password_confirm) {
+            $this->data[$this->alias]['password'] = $this->data[$this->alias]['password_validate']; 
+            return true;
+        }
+        return false;
+    }
+
     public function isOwnedBy($userId, $user) {
         return $userId === $user;
     }
@@ -24,8 +38,10 @@ class User extends AppModel {
     public function beforeSave($options = array()) {
         if (isset($this->data[$this->alias]['password'])) {
             $this->data[$this->alias]['password'] = AuthComponent::password($this->data[$this->alias]['password']);
-        }
         return true;
+        } else {
+            return false;
+        }
     }
 
     public $displayField = 'name';
@@ -76,9 +92,9 @@ class User extends AppModel {
             ),
         ),
         'name' => array(
-            'notempty' => array(
-                'rule' => array('notempty'),
-                //'message' => 'Your custom message here',
+            'length' => array(
+                'rule' => array('minLength', 3),
+                'message' => 'Name must be at least 3 characters long',
                 //'allowEmpty' => false,
                 //'required' => false,
                 //'last' => false, // Stop validation after this rule
@@ -104,6 +120,24 @@ class User extends AppModel {
             ),
         ),
         'username' => array(
+            'length' => array(
+                'rule' => array('minLength', 3),
+                'message' => 'Username must be at least 3 characters long',
+                //'allowEmpty' => false,
+                //'required' => false,
+                //'last' => false, // Stop validation after this rule
+                //'on' => 'create', // Limit validation to 'create' or 'update' operations
+            ),
+            'alphanum' => array(
+                'rule' => 'alphanumeric',
+                'message' => 'Only letter and numbers',
+            ),
+            'unique' => array(
+                'rule' => 'isUnique',
+                'message' => 'Username already taken',
+            ),
+        ),
+        'password' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
                 //'message' => 'Your custom message here',
@@ -113,10 +147,10 @@ class User extends AppModel {
                 //'on' => 'create', // Limit validation to 'create' or 'update' operations
             ),
         ),
-        'password' => array(
-            'notempty' => array(
-                'rule' => array('notempty'),
-                //'message' => 'Your custom message here',
+        'password_validate' => array(
+            'compare' => array(
+                'rule' => array('password_match'),
+                'message' => 'Passwords did not match',
                 //'allowEmpty' => false,
                 //'required' => false,
                 //'last' => false, // Stop validation after this rule

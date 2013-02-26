@@ -7,6 +7,7 @@
 		echo $this->Form->input('email');
 		echo $this->Form->input('username');
         echo $this->Form->input('password', array('type' => 'password'));
+        echo $this->Form->input('password_validate', array('type' => 'password', 'label' => 'Password validate'));
 		echo $this->Form->input('bnetaccount', array('label' => 'Battle.net Account'));
 		echo $this->Form->input('bnetcode', array('label' => 'Battle.net Character Code'));
         echo $this->Form->input('race', array('options' => array("Terran","Protoss","Zerg","Random",)));
