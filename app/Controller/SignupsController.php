@@ -13,6 +13,16 @@ class SignupsController extends AppController {
  *
  * @return void
  */
+    public function isAuthorized($user) {
+        // All registered users can add posts
+        if (in_array($this->action, array('index', 'view', 'add'))) {
+            return true;
+        }
+
+        return parent::isAuthorized($user);
+
+    }
+
 	public function index($id = null) {
 		$this->Signup->recursive = 0;
 		$this->set('signups', $this->paginate(array('tournament_id'=>$id)));
