@@ -19,7 +19,6 @@ class TournamentsController extends AppController {
             return true;
         }
 
-
         return parent::isAuthorized($user);
 
     }

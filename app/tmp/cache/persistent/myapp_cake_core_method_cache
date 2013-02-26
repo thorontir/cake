@@ -1,2 +1,2 @@
-1361894784
-a:2:{s:4:"name";a:10:{i:1532098071;s:13:"`caketourney`";i:-1684970019;s:7:"`count`";i:-513120876;s:7:"`users`";i:-355506175;s:11:"`User`.`id`";i:786993879;s:6:"`User`";i:417471287;s:19:"`users_tournaments`";i:321977789;s:17:"`UsersTournament`";i:1648504264;s:27:"`UsersTournament`.`user_id`";i:-975041724;s:22:"`UsersTournament`.`id`";i:1948521816;s:27:"`UsersTournament`.`user_id`";}s:6:"fields";a:2:{s:32:"41f6759425e5a2f7e664d2df296ef630";a:1:{i:0;s:19:"COUNT(*) AS `count`";}s:32:"6273843d1beaff01d81448ad3fca41cb";a:1:{i:0;s:22:"`UsersTournament`.`id`";}}}
+1361904899
+a:2:{s:4:"name";a:6:{i:1532098071;s:13:"`caketourney`";i:-355506175;s:11:"`User`.`id`";i:-1011523120;s:13:"`User`.`name`";i:-513120876;s:7:"`users`";i:786993879;s:6:"`User`";i:-412353642;s:13:"`tournaments`";}s:6:"fields";a:1:{s:32:"b92f39e1a96920bc35197c8fbedb55de";a:2:{i:0;s:11:"`User`.`id`";i:1;s:13:"`User`.`name`";}}}

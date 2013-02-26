@@ -37,7 +37,7 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<h1><?php echo $this->Html->link(__('CakePHP: the rapid development php framework'), 'http://cakephp.org'); ?></h1>
+            <h1 style="float: right;"><?php if ($this->Session->read('Auth.User.id')) {echo $this->Html->link(__('Logout'), array('controller' => "users", 'action' => 'logout'));} ?></h1>
 		</div>
 		<div id="content">
 
