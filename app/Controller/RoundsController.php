@@ -1,100 +1,62 @@
 <?php
-App::uses('AppController', 'Controller');
-/**
- * Rounds Controller
- *
- * @property Round $Round
- */
+App::import('Controller', 'Matches');
 class RoundsController extends AppController {
 
-
-/**
- * index method
- *
- * @return void
- */
-	public function index() {
-		$this->Round->recursive = 0;
-		$this->set('rounds', $this->paginate());
+	var $name = 'Rounds';
+	var $scaffold;
+	
+	function generate ($tournament_id, $number, $matchcount, $games_per_match)
+	{
+		$this->Round->create();
+		$this->data['Round']['tournament_id']=$tournament_id;
+		$this->data['Round']['number']=$number;
+		if ($this->Round->save($this->data)) 
+		{
+				$id= $this->Round->id;
+				//$this->Session->setFlash(__('The round has been saved', true));
+		} 
+			else 
+		{
+				$this->Session->setFlash(__('The round could not be saved. Please, try again.', true));
+		}
+		
+		//Generate Matches
+		$Matches = new MatchesController;
+		$Matches->ConstructClasses();
+		
+		$this->Round->getLastInsertId();
+		for ($i = 0; $i<$matchcount ; $i++)
+		{
+			$Matches->generate($id,$i,$games_per_match);
+		}
+			
 	}
-
-/**
- * view method
- *
- * @param string $id
- * @return void
- */
-	public function view($id = null) {
-		$this->Round->id = $id;
-		if (!$this->Round->exists()) {
-			throw new NotFoundException(__('Invalid round'));
+	function generate_with_matchups ($tournament_id, $number, $matchcount, $games_per_match, $matchups)
+	{	
+		$this->Round->create();
+		$this->data['Round']['tournament_id']=$tournament_id;
+		$this->data['Round']['number']=$number;
+		if ($this->Round->save($this->data)) 
+		{
+				$id= $this->Round->id;
+				//$this->Session->setFlash(__('The round has been saved', true));
+		} 
+			else 
+		{
+				$this->Session->setFlash(__('The round could not be saved. Please, try again.', true));
 		}
-		$this->set('round', $this->Round->read(null, $id));
+		
+		//Generate Matches
+		$Matches = new MatchesController;
+		$Matches->ConstructClasses();
+		
+		$this->Round->getLastInsertId();
+		for ($i = 0; $i<$matchcount ; $i++)
+		{
+			$Matches->generate_with_matchup($id,$i,$games_per_match,$matchups[$i][0],$matchups[$i][1]);
+		}
+			
 	}
-
-/**
- * add method
- *
- * @return void
- */
-	public function add() {
-		if ($this->request->is('post')) {
-			$this->Round->create();
-			if ($this->Round->save($this->request->data)) {
-				$this->Session->setFlash(__('The round has been saved'));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The round could not be saved. Please, try again.'));
-			}
-		}
-		$tournaments = $this->Round->Tournament->find('list');
-		$this->set(compact('tournaments'));
-	}
-
-/**
- * edit method
- *
- * @param string $id
- * @return void
- */
-	public function edit($id = null) {
-		$this->Round->id = $id;
-		if (!$this->Round->exists()) {
-			throw new NotFoundException(__('Invalid round'));
-		}
-		if ($this->request->is('post') || $this->request->is('put')) {
-			if ($this->Round->save($this->request->data)) {
-				$this->Session->setFlash(__('The round has been saved'));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The round could not be saved. Please, try again.'));
-			}
-		} else {
-			$this->request->data = $this->Round->read(null, $id);
-		}
-		$tournaments = $this->Round->Tournament->find('list');
-		$this->set(compact('tournaments'));
-	}
-
-/**
- * delete method
- *
- * @param string $id
- * @return void
- */
-	public function delete($id = null) {
-		if (!$this->request->is('post')) {
-			throw new MethodNotAllowedException();
-		}
-		$this->Round->id = $id;
-		if (!$this->Round->exists()) {
-			throw new NotFoundException(__('Invalid round'));
-		}
-		if ($this->Round->delete()) {
-			$this->Session->setFlash(__('Round deleted'));
-			$this->redirect(array('action' => 'index'));
-		}
-		$this->Session->setFlash(__('Round was not deleted'));
-		$this->redirect(array('action' => 'index'));
-	}
+		
 }
+?>

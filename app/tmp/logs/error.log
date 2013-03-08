@@ -332,3 +332,14 @@
 #11 /srv/http/cake/lib/Cake/Routing/Dispatcher.php(85): Dispatcher->_invoke(Object(SignupsController), Object(CakeRequest), Object(CakeResponse))
 #12 /srv/http/cake/app/webroot/index.php(98): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #13 {main}
+2013-03-08 08:16:02 Error: [MissingTableException] Table k_o_tournaments for model KOTournament was not found in datasource default.
+#0 /srv/http/cake/lib/Cake/Model/Model.php(3380): Model->setSource('k_o_tournaments')
+#1 /srv/http/cake/lib/Cake/Model/Model.php(2635): Model->getDataSource()
+#2 /srv/http/cake/lib/Cake/Model/Model.php(1491): Model->find('first', Array)
+#3 /srv/http/cake/app/Controller/KOTournamentsController.php(80): Model->read(NULL, '1')
+#4 [internal function]: KOTournamentsController->start_random('1')
+#5 /srv/http/cake/lib/Cake/Controller/Controller.php(488): ReflectionMethod->invokeArgs(Object(KOTournamentsController), Array)
+#6 /srv/http/cake/lib/Cake/Routing/Dispatcher.php(103): Controller->invokeAction(Object(CakeRequest))
+#7 /srv/http/cake/lib/Cake/Routing/Dispatcher.php(85): Dispatcher->_invoke(Object(KOTournamentsController), Object(CakeRequest), Object(CakeResponse))
+#8 /srv/http/cake/app/webroot/index.php(98): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#9 {main}
