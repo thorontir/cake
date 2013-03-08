@@ -16,7 +16,7 @@ class UsersController extends AppController {
             return true;
         }
 
-        // The owner of a post can edit and delete it
+        // The user himself can edit and delete himself
         if (in_array($this->action, array('edit', 'delete'))) {
             $userId = $this->request->params['pass'][0];
             if ($this->User->isOwnedBy($userId, $user['id'])) {

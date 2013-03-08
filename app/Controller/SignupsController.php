@@ -19,6 +19,13 @@ class SignupsController extends AppController {
             return true;
         }
 
+        // The user himself can delete his signup
+        if (in_array($this->action, array('delete'))) {
+            $signupId = $this->request->params['pass'][0];
+            if ($this->Signup->isOwnedBy($signupId, $user['id'])) {
+                return true;
+            }
+        }
         return parent::isAuthorized($user);
 
     }

@@ -7,6 +7,12 @@ App::uses('AppModel', 'Model');
  * @property User $User
  */
 class Signup extends AppModel {
+    
+    
+    public function isOwnedBy($signupId, $user) {
+        return $this->field('id', array('id' => $signupId, 'user_id' => $user)) === $signupId;
+    }
+
 /**
  * Validation rules
  *
