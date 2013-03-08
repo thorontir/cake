@@ -264,3 +264,14 @@
 #1 /var/www/cake/lib/Cake/Routing/Dispatcher.php(85): Dispatcher->_invoke(Object(ThreadsController), Object(CakeRequest), Object(CakeResponse))
 #2 /var/www/cake/app/webroot/index.php(98): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #3 {main}
+2013-03-04 08:07:43 Error: [MissingActionException] Action SignupsController::1() could not be found.
+#0 /srv/http/cake/lib/Cake/Routing/Dispatcher.php(103): Controller->invokeAction(Object(CakeRequest))
+#1 /srv/http/cake/lib/Cake/Routing/Dispatcher.php(85): Dispatcher->_invoke(Object(SignupsController), Object(CakeRequest), Object(CakeResponse))
+#2 /srv/http/cake/app/webroot/index.php(98): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2013-03-05 08:14:45 Error: [MissingControllerException] Controller class UserstournamentController could not be found.
+#0 /srv/http/cake/app/webroot/index.php(98): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2013-03-05 08:14:52 Error: [MissingControllerException] Controller class UserstournamentsController could not be found.
+#0 /srv/http/cake/app/webroot/index.php(98): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}

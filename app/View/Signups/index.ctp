@@ -32,7 +32,7 @@
     </div>
     <div class="actions">
         <ul> 
-            <li><?php echo $this->Html->link(__('Sign me up'), array('action' => 'add')); ?></li>
+            <li><?php echo $this->Html->link(__('Sign me up'), array('action' => 'add', $id)); ?></li>
         </ul>
     </div>
 </div>

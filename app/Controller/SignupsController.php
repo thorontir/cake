@@ -1,5 +1,5 @@
 <?php
-App::uses('AppController', 'Controller');
+App::uses('AppController', 'Controller', 'UsersTournamentsController');
 /**
  * Signups Controller
  *
@@ -28,6 +28,7 @@ class SignupsController extends AppController {
 		$this->set('signups', $this->paginate(array('tournament_id'=>$id)));
         $this->Signup->Tournament->id = $id;
         $this->set('name', $this->Signup->Tournament->field('name'));
+        $this->set('id', $id);
 	}
 
 /**
@@ -49,35 +50,41 @@ class SignupsController extends AppController {
  *
  * @return void
  */
-	public function add() {
+	public function add($id = null) {
+        // check wether user is already signed up !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		if ($this->request->is('post')) {
+            if ($this->Signup->find('all', array('conditions' => array('tournament_id' => $id, 'user_id' => $this->Session->read('Auth.User.id'))))) {
+                $this->Session->setFlash(__('You are already signed up.'));
+                $this->redirect(array('action' => 'index', $id));
+            } else {
 			$this->Signup->create();
-			if ($this->Signup->save($this->request->data)) {
-				$this->Session->setFlash(__('The signup has been saved'));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The signup could not be saved. Please, try again.'));
-			}
-		}
-		$tournaments = $this->Signup->Tournament->find('list');
-		$users = $this->Signup->User->find('list');
-		$this->set(compact('tournaments', 'users'));
-	}
+            $this->request->data['Signup']['tournament_id']=$id;
+            $this->request->data['Signup']['user_id']=$this->Session->read('Auth.User.id');
+            if ($this->Signup->save($this->request->data)) {
+                $this->Session->setFlash(__('The signup has been saved'));
+                $this->redirect(array('action' => 'index', $id));
+            } else {
+                $this->Session->setFlash(__('The signup could not be saved. Please, try again.'));
+            }
+        }
+        }
+        $this->set('id', $id);
+    }
 
-/**
- * edit method
- *
- * @param string $id
- * @return void
- */
-	public function edit($id = null) {
-		$this->Signup->id = $id;
+    /**
+     * edit method
+     *
+     * @param string $id
+     * @return void
+     */
+    public function edit($id = null) {
+        $this->Signup->id = $id;
         $tournament = $this->Signup->field('tournament_id');
-		if (!$this->Signup->exists()) {
-			throw new NotFoundException(__('Invalid signup'));
-		}
-		if ($this->request->is('post') || $this->request->is('put')) {
-			if ($this->Signup->save($this->request->data)) {
+        if (!$this->Signup->exists()) {
+            throw new NotFoundException(__('Invalid signup'));
+        }
+        if ($this->request->is('post') || $this->request->is('put')) {
+            if ($this->Signup->save($this->request->data)) {
                 $this->Session->setFlash(__('The signup has been saved'));
                 $this->redirect(array('action' => 'index', $tournament));
             } else {

@@ -1,13 +1,10 @@
 <div class="signups form">
 <?php echo $this->Form->create('Signup');?>
 	<fieldset>
-		<legend><?php echo __('Add Signup'); ?></legend>
-	<?php
-		echo $this->Form->input('tournament_id');
-		echo $this->Form->input('user_id');
-	?>
+		<legend><?php echo __('Sure?'); ?></legend>
+        <?php echo $this->Html->link(__('No, get me out of here!'), array('action' => 'index', $id)); ?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit'));?>
+<?php echo $this->Form->end(__('Yes')); ?>
 </div>
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
