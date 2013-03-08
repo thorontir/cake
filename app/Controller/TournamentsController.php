@@ -115,11 +115,26 @@ class TournamentsController extends AppController {
  * @return void
  */
 	public function view($id = null) {
-		$this->Tournament->id = $id;
+		//redirect to right tourney type
+        $this->Tournament->id = $id;
+		if ($this->Tournament->field('current_round')==-1)
+		{
+			$this->redirect(array('controller' => 'Signups', 'action' => 'index',$id));
+		}
+		if ($this->Tournament->field('typeField') == 'KO' OR $this->Tournament->field('typeField') == 'SKO')
+		{
+			$this->redirect(array('controller'=> 'KOTournaments','action' => 'view',$id));
+		}
+		if ($this->Tournament->field('typeField') == 'Swiss')
+		{
+			$this->redirect(array('controller'=> 'SwissTournaments','action' => 'view',$id));
+		}
+		/*$this->Tournament->id = $id;
 		if (!$this->Tournament->exists()) {
 			throw new NotFoundException(__('Invalid tournament'));
 		}
 		$this->set('tournament', $this->Tournament->read(null, $id));
+         */
 	}
 
 /**

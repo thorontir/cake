@@ -10,7 +10,7 @@ class BracketHelper extends AppHelper {
 				<div class="topbox"> 
 					<?php
 					if ($player1!=null)
-						echo $this->Html->link(($player1['username']), array('controller' => 'matches', 'action' => 'view',$match_id));
+						echo $this->Html->link(($player1), array('controller' => 'matches', 'action' => 'view',$match_id));
 					else
 						echo $this->Html->link(('-'), array('controller' => 'matches', 'action' => 'view',$match_id));
 					?>
@@ -18,7 +18,7 @@ class BracketHelper extends AppHelper {
 				<div class="bottombox"> 
 					<?php
 					if ($player2!=null)
-						echo $this->Html->link(($player2['username']), array('controller' => 'matches', 'action' => 'view',$match_id));
+						echo $this->Html->link(($player2), array('controller' => 'matches', 'action' => 'view',$match_id));
 					else
 						echo $this->Html->link(('-'), array('controller' => 'matches', 'action' => 'view',$match_id));
 					?>

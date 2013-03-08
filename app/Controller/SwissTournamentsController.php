@@ -26,14 +26,14 @@ class SwissTournamentsController extends AppController {
 	}
 	function settings($id=null){
 		$current_user = $this->Auth->user('id');
-		if (!empty($this->data)) {
-			if($this->SwissTournament->Ranking->save($this->data))
+		if (!empty($this->request->data)) {
+			if($this->SwissTournament->Ranking->save($this->request->data))
 			{
 				$this->Session->setFlash(__('Settings saved', true));
 			}
 		}
 		else {
-			$this->data=$this->SwissTournament->Ranking->find('first',array('conditions'=>array('Ranking.user_id'=>$current_user,'Ranking.tournament_id'=>$id)));
+			$this->request->data=$this->SwissTournament->Ranking->find('first',array('conditions'=>array('Ranking.user_id'=>$current_user,'Ranking.tournament_id'=>$id)));
 		}
 	}
 	function start($id) {
@@ -42,21 +42,21 @@ class SwissTournamentsController extends AppController {
 			$this->Session->setFlash(__('Access denied', true));
 			$this->redirect(array('action'=>'index'));
 		}
-		if (!empty($this->data)) {
+		if (!empty($this->request->data)) {
 			
-			$this->data['SwissTournament']['current_round'] = 0;
+			$this->request->data['SwissTournament']['current_round'] = 0;
 
 			
-			if ($this->SwissTournament->save($this->data)) {
-				foreach($this->data['User']['User'] as $user)
+			if ($this->SwissTournament->save($this->request->data)) {
+				foreach($this->request->data['User']['User'] as $user)
 				{
 					$this->SwissTournament->Ranking->create();
-					$this->data['Ranking']['tournament_id']=$this->SwissTournament->id;
-					$this->data['Ranking']['user_id']=$user;
-					$this->data['Ranking']['elo']=1000;
-					$this->SwissTournament->Ranking->save($this->data);
+					$this->request->data['Ranking']['tournament_id']=$this->SwissTournament->id;
+					$this->request->data['Ranking']['user_id']=$user;
+					$this->request->data['Ranking']['elo']=1000;
+					$this->SwissTournament->Ranking->save($this->request->data);
 				}
-				$this->create_rounds($this->data['SwissTournament']['roundnumber'],$this->data['User']['User'],$this->data['SwissTournament']['bestof']);
+				$this->create_rounds($this->request->data['SwissTournament']['roundnumber'],$this->request->data['User']['User'],$this->request->data['SwissTournament']['bestof']);
 				$this->Session->setFlash(__('The swiss tournament has been saved', true));
 				$this->redirect(array('action' => 'view',$this->SwissTournament->id));
 				
@@ -64,8 +64,8 @@ class SwissTournamentsController extends AppController {
 				$this->Session->setFlash(__('The swiss tournament could not be saved. Please, try again.', true));
 			}
 		}
-		if (empty($this->data)) {
-			$this->data = $this->SwissTournament->read(null, $id);
+		if (empty($this->request->data)) {
+			$this->request->data = $this->SwissTournament->read(null, $id);
 			
 		}
 		$options['joins'] = array(
@@ -138,13 +138,13 @@ class SwissTournamentsController extends AppController {
 	}
 	function playoffs($id)
 	{
-		if (!empty($this->data))
+		if (!empty($this->request->data))
 		{
 			$KO = new KOTournamentsController;
 			$KO->ConstructClasses();
 			$seeds=array();
 			$ranked_players = $this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.tournament_id'=>$id),'order'=>array('Ranking.match_points DESC','Ranking.elo DESC')));
-			for($i=0;$i<$this->data['SwissTournament']['cutoff'];$i++)
+			for($i=0;$i<$this->request->data['SwissTournament']['cutoff'];$i++)
 			{
 				$seeds[$i]=$ranked_players[$i]['Ranking']['user_id'];
 			}
@@ -157,9 +157,9 @@ class SwissTournamentsController extends AppController {
 			$this->Session->setFlash(__('Playoffs created', true));
 			$this->redirect(array('controller'=>'KOTournaments','action' => 'determine_gamecount',$id));
 		}
-		if (empty($this->data))
+		if (empty($this->request->data))
 		{
-			$this->data=$this->SwissTournament->read(null,$id);
+			$this->request->data=$this->SwissTournament->read(null,$id);
 			
 		}
 	}

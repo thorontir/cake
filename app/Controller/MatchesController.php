@@ -8,11 +8,11 @@ class MatchesController extends AppController {
 	function generate ($round_id, $number_in_round, $games_per_match)
 	{
 		$this->Match->create();
-		$this->data['Match']['round_id']=$round_id;
-		$this->data['Match']['number_in_round']=$number_in_round;
-		$this->data['Match']['games']=$games_per_match;
-		$this->data['Match']['open']=1;
-		if ($this->Match->save($this->data)) {
+		$this->request->data['Match']['round_id']=$round_id;
+		$this->request->data['Match']['number_in_round']=$number_in_round;
+		$this->request->data['Match']['games']=$games_per_match;
+		$this->request->data['Match']['open']=1;
+		if ($this->Match->save($this->request->data)) {
 				
 		} 
 		else 
@@ -24,26 +24,26 @@ class MatchesController extends AppController {
 	function generate_with_matchup ($round_id, $number_in_round, $games_per_match, $player1_id, $player2_id)
 	{
 		$this->Match->create();
-		$this->data['Match']['round_id']=$round_id;
-		$this->data['Match']['number_in_round']=$number_in_round;
-		$this->data['Match']['games']=$games_per_match;
-		$this->data['Match']['player1_id']=$player1_id;
-		$this->data['Match']['player2_id']=$player2_id;
+		$this->request->data['Match']['round_id']=$round_id;
+		$this->request->data['Match']['number_in_round']=$number_in_round;
+		$this->request->data['Match']['games']=$games_per_match;
+		$this->request->data['Match']['player1_id']=$player1_id;
+		$this->request->data['Match']['player2_id']=$player2_id;
 		
 		if(!$player1_id){
-			$this->data['Match']['player2_score']=1;
-			$this->data['Match']['open']=0;
+			$this->request->data['Match']['player2_score']=1;
+			$this->request->data['Match']['open']=0;
 		}
 		
 		else if (!$player2_id){
-			$this->data['Match']['player1_score']=1;
-			$this->data['Match']['open']=0;
+			$this->request->data['Match']['player1_score']=1;
+			$this->request->data['Match']['open']=0;
 		}
 		else
 		{
-			$this->data['Match']['open']=1;
+			$this->request->data['Match']['open']=1;
 		}
-		if ($this->Match->save($this->data)) {
+		if ($this->Match->save($this->request->data)) {
 		} 
 		else 
 		{
@@ -75,7 +75,7 @@ class MatchesController extends AppController {
 			$this->redirect(array('action' => 'index'));
 		}
 		
-		if (!empty($this->data)) {
+		if (!empty($this->request->data)) {
 
 			if ((!$this->Session->read('Auth.User.admin')) AND ($this->Match->field('player1_id') != !$this->Session->read('Auth.User.id')) AND ($this->Match->field('player2_id') != !$this->Session->read('Auth.User.id')))
 			{
@@ -83,18 +83,18 @@ class MatchesController extends AppController {
 				//$this->redirect(array('action'=>'index'));
 			}
 
-			$this->data['Match']['open']=0;
-			if ($this->Match->save($this->data)) {
+			$this->request->data['Match']['open']=0;
+			if ($this->Match->save($this->request->data)) {
 				$this->Session->setFlash(__('The match has been saved', true));
 				
 				$Tournaments = new TournamentsController;
 				$Tournaments->ConstructClasses();
 			
-				$Tournaments->report_match($this->Match->id, $this->data['Match']['player1_score'],$this->data['Match']['player2_score']);
+				$Tournaments->report_match($this->Match->id, $this->request->data['Match']['player1_score'],$this->request->data['Match']['player2_score']);
 				}
 		}
-		if (empty($this->data)) {
-			$this->data = $this->Match->read(null, $id);
+		if (empty($this->request->data)) {
+			$this->request->data = $this->Match->read(null, $id);
 		}
 		$match=$this->Match->read(null, $id);
 		$this->set('match', $match );
@@ -114,20 +114,20 @@ class MatchesController extends AppController {
 			$this->Session->setFlash(__('Access denied', true));
 			$this->redirect(array('action'=>'index'));
 		}
-		if (!$id && empty($this->data)) {
+		if (!$id && empty($this->request->data)) {
 			$this->Session->setFlash(__('Invalid match', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		if (!empty($this->data)) {
-			if ($this->Match->save($this->data)) {
+		if (!empty($this->request->data)) {
+			if ($this->Match->save($this->request->data)) {
 				$this->Session->setFlash(__('The match has been saved', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The match could not be saved. Please, try again.', true));
 			}
 		}
-		if (empty($this->data)) {
-			$this->data = $this->Match->read(null, $id);
+		if (empty($this->request->data)) {
+			$this->request->data = $this->Match->read(null, $id);
 		}
 		$rounds = $this->Match->Round->find('list');
 		$player1s = $this->Match->Player1->find('list');
@@ -158,16 +158,16 @@ class MatchesController extends AppController {
 			$this->Session->setFlash(__('Invalid id for match', true));
 			$this->redirect(array('action'=>'index'));
 		}
-		if(!empty($this->data))
+		if(!empty($this->request->data))
 		{
 			$this->Match->Comment->create();
 			$user_id = $this->Auth->user('id');
-			$this->data['Comment']['user_id']=$user_id;
-			$this->data['Comment']['match_id']=$id;
+			$this->request->data['Comment']['user_id']=$user_id;
+			$this->request->data['Comment']['match_id']=$id;
 			$date = date_create('now');
 
-			$this->data['Comment']['date_posted']=$date->format('Y-m-d H:i:s');
-			$this->Match->Comment->save($this->data);
+			$this->request->data['Comment']['date_posted']=$date->format('Y-m-d H:i:s');
+			$this->Match->Comment->save($this->request->data);
 			$this->redirect(array('action' => 'view',$id));
 		}
 	}
@@ -181,24 +181,24 @@ class MatchesController extends AppController {
 			$this->Session->setFlash(__('Invalid id for match', true));
 			$this->redirect(array('action'=>'index'));
 		}
-		if(!empty($this->data))
+		if(!empty($this->request->data))
 		{
-			$this->data['Replay']['match_id']=$id;
-			foreach ($this->data['Replay'] as $i=>$replay)
+			$this->request->data['Replay']['match_id']=$id;
+			foreach ($this->request->data['Replay'] as $i=>$replay)
 			{
-				if(!empty($this->data['Replay'][$i]['file']))
+				if(!empty($this->request->data['Replay'][$i]['file']))
 				{
 					$this->Match->Replay->create();
 					
-					$this->data['Replay']['file']=$this->data['Replay'][$i]['file'];
-					$this->Match->Replay->save($this->data);
+					$this->request->data['Replay']['file']=$this->request->data['Replay'][$i]['file'];
+					$this->Match->Replay->save($this->request->data);
 				}
 			}
 			$this->redirect(array('action' => 'view',$id));
 			
 		}
-		if (empty($this->data)) {
-			$this->data = $this->Match->read(null, $id);
+		if (empty($this->request->data)) {
+			$this->request->data = $this->Match->read(null, $id);
 		}
 		$this->set('match',$this->Match->read(null,$id));
 	}

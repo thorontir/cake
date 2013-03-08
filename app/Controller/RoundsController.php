@@ -8,9 +8,9 @@ class RoundsController extends AppController {
 	function generate ($tournament_id, $number, $matchcount, $games_per_match)
 	{
 		$this->Round->create();
-		$this->data['Round']['tournament_id']=$tournament_id;
-		$this->data['Round']['number']=$number;
-		if ($this->Round->save($this->data)) 
+		$this->request->data['Round']['tournament_id']=$tournament_id;
+		$this->request->data['Round']['number']=$number;
+		if ($this->Round->save($this->request->data)) 
 		{
 				$id= $this->Round->id;
 				//$this->Session->setFlash(__('The round has been saved', true));
@@ -34,9 +34,9 @@ class RoundsController extends AppController {
 	function generate_with_matchups ($tournament_id, $number, $matchcount, $games_per_match, $matchups)
 	{	
 		$this->Round->create();
-		$this->data['Round']['tournament_id']=$tournament_id;
-		$this->data['Round']['number']=$number;
-		if ($this->Round->save($this->data)) 
+		$this->request->data['Round']['tournament_id']=$tournament_id;
+		$this->request->data['Round']['number']=$number;
+		if ($this->Round->save($this->request->data)) 
 		{
 				$id= $this->Round->id;
 				//$this->Session->setFlash(__('The round has been saved', true));

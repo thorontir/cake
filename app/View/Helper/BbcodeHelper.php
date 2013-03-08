@@ -1,6 +1,6 @@
 <?php  
 App::import('helper','shortcode'); 
-class BbcodeHelper extends Shortcode{ 
+class BbcodeHelper extends ShortcodeHelper{ 
 
     function __construct(){ 
         // Register the shortcodes 

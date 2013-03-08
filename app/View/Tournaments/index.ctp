@@ -16,7 +16,7 @@
 		<td><?php echo h($tournament['Tournament']['typeField']); ?>&nbsp;</td>
 		<td><?php echo h($tournament['Tournament']['current_round']); ?>&nbsp;</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('controller' => 'signups', 'action' => 'index', $tournament['Tournament']['id'])); ?>
+			<?php echo $this->Html->link(__('View'), array('action' => 'view', $tournament['Tournament']['id'])); ?>
 			<?php if ($this->Session->read('Auth.User.admin')) { echo $this->Html->link(__('Edit'), array('action' => 'edit', $tournament['Tournament']['id']));
 			      echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $tournament['Tournament']['id']), null, __('Are you sure you want to delete %s?', $tournament['Tournament']['name']));
                  if ( $tournament['Tournament']['current_round']==-1) echo $this->Html->link(__('Start', true), array('action' => 'start', $tournament['Tournament']['id']));} ?>
