@@ -5,6 +5,16 @@ class MatchesController extends AppController {
 	var $name = 'Matches';
 	var $helpers = array('Race','Text','Bbcode');
 	
+    public function isAuthorized($user) {
+        // All registered users can add posts
+        if (in_array($this->action, array('index', 'view'))) {
+            return true;
+        }
+
+        return parent::isAuthorized($user);
+
+    }
+
 	function generate ($round_id, $number_in_round, $games_per_match)
 	{
 		$this->Match->create();

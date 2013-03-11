@@ -1,139 +1,118 @@
 <div class="matches view">
-<h2><?php  echo __('Match');?></h2>
-	<dl>
-		<dt><?php echo __('Id'); ?></dt>
-		<dd>
-			<?php echo h($match['Match']['id']); ?>
+
+
+
+<h2><?php echo ($this->Race->small_img($match['Player1']['race']).' '. $match['Player1']['username'] .' VS '.$match['Player2']['username'].' '.$this->Race->small_img($match['Player2']['race']));?></h2>
+	<dl><?php $i = 0; $class = ' class="altrow"';?>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Round'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo ($match['Round']['number']+1); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Round'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($match['Round']['id'], array('controller' => 'rounds', 'action' => 'view', $match['Round']['id'])); ?>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Tournament'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $this->Html->link($round['Tournament']['name'], array('controller' => 'tournaments', 'action' => 'view', $round['Tournament']['id'])); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Player1 Id'); ?></dt>
-		<dd>
-			<?php echo h($match['Match']['player1_id']); ?>
+		
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Best of'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $match['Match']['games']; ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Player2 Id'); ?></dt>
-		<dd>
-			<?php echo h($match['Match']['player2_id']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Games'); ?></dt>
-		<dd>
-			<?php echo h($match['Match']['games']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Player1 Score'); ?></dt>
-		<dd>
-			<?php echo h($match['Match']['player1_score']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Player2 Score'); ?></dt>
-		<dd>
-			<?php echo h($match['Match']['player2_score']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Open'); ?></dt>
-		<dd>
-			<?php echo h($match['Match']['open']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Number In Round'); ?></dt>
-		<dd>
-			<?php echo h($match['Match']['number_in_round']); ?>
-			&nbsp;
-		</dd>
+	
 	</dl>
+	<?php 
+
+	//Show Report page, if user participates and match is open
+	if($report AND $match['Match']['open'])
+	//if($match['Match']['open'])
+	{
+	?>
+	
+	<div class="scores">
+		<?php echo $this->Form->create('Match');?>
+		<h3>Scores</h3>
+		<div class="score1">
+			<?php echo ($this->Race->small_img($match['Player1']['race']).' '. $match['Player1']['username'])?>
+			<?php echo $this->Form->input('player1_score', array( 'label' => '' ));?>
+		</div>
+		<div class="score2">
+			<?php echo $this->Form->input('player2_score', array( 'label' => '' ));?>
+			<?php echo ($match['Player2']['username'].' '.$this->Race->small_img($match['Player2']['race']))?>
+		</div>
+		<?php echo $this->Form->end(__('Submit', true));?>
+	</div>
+	<?php
+	}
+	//show normal page otherwise
+	else
+	{
+	?>
+	<div class="scores">
+		<h3>Scores</h3>
+		<div align="left">
+			<?php echo ($this->Race->small_img($match['Player1']['race']).' '. $match['Player1']['username'].' <strong>'.$match['Match']['player1_score'].'</strong>')?>
+		</div>
+		<div align="right">
+			<?php echo ('<strong>'.$match['Match']['player2_score'].'</strong> '. $match['Player2']['username'].' '.$this->Race->small_img($match['Player2']['race']))?>
+		</div>
+	</div>
+	<?php
+	}?>
+	<h3>Replays</h3>
+	<?php
+	//show upload button if allowed
+	if($report){?>
+	<div class="buttons" align="right">
+		<?php echo $this->Html->link('Upload Replays', array('controller'=>'matches', 'action' => 'upload_replays', $match['Match']['id']));?>
+	</div>
+	<?php }?>
+	<?php foreach ($replays as $replay)
+	{?>
+		<?php echo $this->Html->link( $replay['Replay']['name'], '/files/'.$replay['Replay']['name'] );?>
+		<br>
+	<?php }?>
+	<h3>Comments</h3>
+	<?php echo $this->Form->create('Match', array('action'=>'post_comment'));?>
+	<?php echo $this->Form->input('Comment.body', array('label'=>'Post Comment'));?>
+	BBCode is enabled<br>
+	Embedding images is disabled
+	<?php echo $this->Form->end(__('Submit', true));?>
+	<table>
+		<?php
+		foreach ($comments as $comment){?>
+		<tr>
+			<td class="info">
+				<?php echo($this->Html->link($comment['User']['username'], array('controller' => 'users', 'action' => 'view', $comment['User']['id']))); ?>
+				<br>
+				<small>
+				<?php echo ($comment['Comment']['date_posted']);?>
+				</small>
+			</td>
+			<td>
+				<div align="right" class="buttons">
+					<?php
+					if ($this->Session->read('Auth.User.admin') OR $comment['Comment']['user_id']==$current_user)
+					{
+						echo($this->Html->link('Edit', array('controller' => 'comments', 'action' => 'edit', $comment['Comment']['id'])));
+						echo $this->Html->link('Delete', array('controller' => 'comments', 'action' => 'delete', $comment['Comment']['id']), null, sprintf(__('Are you sure you want to delete this Comment?', true)));
+					}?>
+				</div>
+				<?php $body = $this->Bbcode->doShortcode(strip_tags($comment['Comment']['body']));
+				echo ( $this->Text->autoLink($body));?>
+			</td>
+		</tr>
+		<?php }?>
+	</table>
 </div>
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('Edit Match'), array('action' => 'edit', $match['Match']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Match'), array('action' => 'delete', $match['Match']['id']), null, __('Are you sure you want to delete # %s?', $match['Match']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Matches'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Match'), array('action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Rounds'), array('controller' => 'rounds', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Round'), array('controller' => 'rounds', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Comments'), array('controller' => 'comments', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Comment'), array('controller' => 'comments', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Replays'), array('controller' => 'replays', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Replay'), array('controller' => 'replays', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Thread'), array('controller' => 'threads', 'action' => 'add')); ?></li>
+		<li><?php if ($this->Session->read('Auth.User.admin')) {echo $this->Html->link(__('New Tournament'), array('controller' => 'tournaments', 'action' => 'add'));} ?> </li>
+		<li><?php echo $this->Html->link(__('List Tournaments'), array('controller' => 'tournaments', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('View Forum'), array('controller' => 'threads', 'action' => 'index')); ?></li>
 	</ul>
-</div>
-<div class="related">
-	<h3><?php echo __('Related Comments');?></h3>
-	<?php if (!empty($match['Comment'])):?>
-	<table cellpadding = "0" cellspacing = "0">
-	<tr>
-		<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Match Id'); ?></th>
-		<th><?php echo __('User Id'); ?></th>
-		<th><?php echo __('Body'); ?></th>
-		<th><?php echo __('Date Posted'); ?></th>
-		<th class="actions"><?php echo __('Actions');?></th>
-	</tr>
-	<?php
-		$i = 0;
-		foreach ($match['Comment'] as $comment): ?>
-		<tr>
-			<td><?php echo $comment['id'];?></td>
-			<td><?php echo $comment['match_id'];?></td>
-			<td><?php echo $comment['user_id'];?></td>
-			<td><?php echo $comment['body'];?></td>
-			<td><?php echo $comment['date_posted'];?></td>
-			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'comments', 'action' => 'view', $comment['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'comments', 'action' => 'edit', $comment['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'comments', 'action' => 'delete', $comment['id']), null, __('Are you sure you want to delete # %s?', $comment['id'])); ?>
-			</td>
-		</tr>
-	<?php endforeach; ?>
-	</table>
-<?php endif; ?>
-
-	<div class="actions">
-		<ul>
-			<li><?php echo $this->Html->link(__('New Comment'), array('controller' => 'comments', 'action' => 'add'));?> </li>
-		</ul>
-	</div>
-</div>
-<div class="related">
-	<h3><?php echo __('Related Replays');?></h3>
-	<?php if (!empty($match['Replay'])):?>
-	<table cellpadding = "0" cellspacing = "0">
-	<tr>
-		<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Name'); ?></th>
-		<th><?php echo __('Type'); ?></th>
-		<th><?php echo __('Size'); ?></th>
-		<th><?php echo __('Match Id'); ?></th>
-		<th class="actions"><?php echo __('Actions');?></th>
-	</tr>
-	<?php
-		$i = 0;
-		foreach ($match['Replay'] as $replay): ?>
-		<tr>
-			<td><?php echo $replay['id'];?></td>
-			<td><?php echo $replay['name'];?></td>
-			<td><?php echo $replay['type'];?></td>
-			<td><?php echo $replay['size'];?></td>
-			<td><?php echo $replay['match_id'];?></td>
-			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'replays', 'action' => 'view', $replay['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'replays', 'action' => 'edit', $replay['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'replays', 'action' => 'delete', $replay['id']), null, __('Are you sure you want to delete # %s?', $replay['id'])); ?>
-			</td>
-		</tr>
-	<?php endforeach; ?>
-	</table>
-<?php endif; ?>
-
-	<div class="actions">
-		<ul>
-			<li><?php echo $this->Html->link(__('New Replay'), array('controller' => 'replays', 'action' => 'add'));?> </li>
-		</ul>
-	</div>
 </div>
