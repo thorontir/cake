@@ -6,6 +6,17 @@ class SwissTournamentsController extends AppController {
 
 	var $name = 'SwissTournaments';
 	var $helpers = array('Race');
+
+    public function isAuthorized($user) {
+        // All registered users can add posts
+        if (in_array($this->action, array('index', 'view'))) {
+            return true;
+        }
+
+        return parent::isAuthorized($user);
+
+    }
+
 	function index() {
 		$this->SwissTournament->recursive = 0;
 		$this->set('swissTournaments', $this->paginate());

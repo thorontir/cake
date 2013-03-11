@@ -4,6 +4,17 @@ App::import('Controller', 'Matches');
 class KOTournamentsController extends AppController {
 	var $helpers = array('Race','Bracket');
 	var $name = 'KOTournaments';
+
+    public function isAuthorized($user) {
+        // All registered users can add posts
+        if (in_array($this->action, array('index', 'view'))) {
+            return true;
+        }
+
+        return parent::isAuthorized($user);
+
+    }
+
 	function report_match($match_id, $player1_score, $player2_score)
 	{
 		
