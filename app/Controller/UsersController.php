@@ -9,6 +9,7 @@ class UsersController extends AppController {
 
     public $name = 'Users';
     public $uses = array('User');
+	public $helpers = array('Race');
 
     public function isAuthorized($user) {
         // All registered users can add posts

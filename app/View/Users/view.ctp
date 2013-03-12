@@ -33,7 +33,7 @@
 		</dd>
 		<dt><?php echo __('Race'); ?></dt>
 		<dd>
-			<?php echo h($user['User']['race']); ?>
+			<?php echo $this->Race->small_img($user['User']['race']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Elo'); ?></dt>

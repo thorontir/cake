@@ -18,7 +18,7 @@
 		<td><?php echo h($user['User']['username']); ?>&nbsp;</td>
 		<td><?php echo h($user['User']['bnetaccount']); ?>&nbsp;</td>
 		<td><?php echo h($user['User']['bnetcode']); ?>&nbsp;</td>
-		<td><?php echo h($user['User']['race']); ?>&nbsp;</td>
+		<td><?php echo $this->Race->small_img($user['User']['race']); ?>&nbsp;</td>
 		<td><?php echo h($user['User']['elo']); ?>&nbsp;</td>
 		<td><?php echo h($user['User']['division']); ?>&nbsp;</td>
 		<td class="actions">
