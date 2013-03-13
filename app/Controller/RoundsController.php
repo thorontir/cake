@@ -1,5 +1,5 @@
 <?php
-App::import('Controller', 'Matches');
+App::uses('Controller', 'Matches');
 class RoundsController extends AppController {
 
 	var $name = 'Rounds';
