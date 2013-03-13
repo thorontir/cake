@@ -63,7 +63,6 @@ class KOTournamentsController extends AppController {
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->set('tournament', $this->KOTournament->find('first', array('conditions'=>array('id' => $id), 'recursive' => 3)));
-        $this->set('users', $this->KOTournament->User->find('list'));
 	}
 
 	function start_random($id) {

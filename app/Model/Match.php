@@ -23,6 +23,20 @@ class Match extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
+		),
+		'Player1' => array(
+			'className' => 'User',
+			'foreignKey' => 'player1_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Player2' => array(
+			'className' => 'User',
+			'foreignKey' => 'player2_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
 		)
 	);
 

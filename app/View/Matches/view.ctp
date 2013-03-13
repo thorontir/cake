@@ -3,20 +3,21 @@
 
 
 <h2><?php echo ($this->Race->small_img($match['Player1']['race']).' '. $match['Player1']['username'] .' VS '.$match['Player2']['username'].' '.$this->Race->small_img($match['Player2']['race']));?></h2>
-	<dl><?php $i = 0; $class = ' class="altrow"';?>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Round'); ?></dt>
-		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+<br>
+    <dl><?php $i = 0; $class = 'class="altrow"';?>
+		<dt <?php if ($i % 2 == 0) echo $class;?>><?php echo __('Round'); ?></dt>
+		<dd <?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo ($match['Round']['number']+1); ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Tournament'); ?></dt>
-		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+		<dt <?php if ($i % 2 == 0) echo $class;?>><?php echo __('Tournament'); ?></dt>
+		<dd <?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $this->Html->link($round['Tournament']['name'], array('controller' => 'tournaments', 'action' => 'view', $round['Tournament']['id'])); ?>
 			&nbsp;
 		</dd>
 		
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Best of'); ?></dt>
-		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+		<dt <?php if ($i % 2 == 0) echo $class;?>><?php echo __('Best of'); ?></dt>
+		<dd <?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $match['Match']['games']; ?>
 			&nbsp;
 		</dd>
@@ -64,9 +65,10 @@
 	<?php
 	//show upload button if allowed
 	if($report){?>
-	<div class="buttons" align="right">
-		<?php echo $this->Html->link('Upload Replays', array('controller'=>'matches', 'action' => 'upload_replays', $match['Match']['id']));?>
-	</div>
+	<ul class="actions">
+		<li><?php echo $this->Html->link('Upload Replays', array('controller'=>'matches', 'action' => 'upload_replays', $match['Match']['id']));?></li>
+    </ul>
+    <br>
 	<?php }?>
 	<?php foreach ($replays as $replay)
 	{?>

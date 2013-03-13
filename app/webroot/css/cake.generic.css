@@ -737,3 +737,11 @@ pre {
 #url-rewriting-warning {
 	display:none;
 }
+
+table .altrow td {
+	background: #92B1C8;
+}
+
+dl .altrow {
+	background: #92B1C8;
+}
