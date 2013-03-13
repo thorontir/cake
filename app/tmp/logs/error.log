@@ -350,27 +350,3 @@
 #3 /srv/http/cake/lib/Cake/Routing/Dispatcher.php(85): Dispatcher->_invoke(Object(MatchesController), Object(CakeRequest), Object(CakeResponse))
 #4 /srv/http/cake/app/webroot/index.php(98): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #5 {main}
-2013-03-13 23:41:13 Error: [MissingTableException] Table k_o_tournaments_controllers for model KOTournamentsController was not found in datasource default.
-#0 /srv/http/cake/lib/Cake/Model/Model.php(3380): Model->setSource('k_o_tournaments...')
-#1 /srv/http/cake/lib/Cake/Model/Model.php(2635): Model->getDataSource()
-#2 /srv/http/cake/lib/Cake/Controller/Component/PaginatorComponent.php(172): Model->find('all', Array)
-#3 /srv/http/cake/lib/Cake/Controller/Controller.php(1087): PaginatorComponent->paginate(NULL, Array, Array)
-#4 /srv/http/cake/app/Controller/TournamentsController.php(110): Controller->paginate()
-#5 [internal function]: TournamentsController->index()
-#6 /srv/http/cake/lib/Cake/Controller/Controller.php(488): ReflectionMethod->invokeArgs(Object(TournamentsController), Array)
-#7 /srv/http/cake/lib/Cake/Routing/Dispatcher.php(103): Controller->invokeAction(Object(CakeRequest))
-#8 /srv/http/cake/lib/Cake/Routing/Dispatcher.php(85): Dispatcher->_invoke(Object(TournamentsController), Object(CakeRequest), Object(CakeResponse))
-#9 /srv/http/cake/app/webroot/index.php(98): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#10 {main}
-2013-03-13 23:41:23 Error: [MissingTableException] Table k_o_tournaments_controllers for model KOTournamentsController was not found in datasource default.
-#0 /srv/http/cake/lib/Cake/Model/Model.php(3380): Model->setSource('k_o_tournaments...')
-#1 /srv/http/cake/lib/Cake/Model/Model.php(2635): Model->getDataSource()
-#2 /srv/http/cake/lib/Cake/Controller/Component/PaginatorComponent.php(172): Model->find('all', Array)
-#3 /srv/http/cake/lib/Cake/Controller/Controller.php(1087): PaginatorComponent->paginate(NULL, Array, Array)
-#4 /srv/http/cake/app/Controller/TournamentsController.php(110): Controller->paginate()
-#5 [internal function]: TournamentsController->index()
-#6 /srv/http/cake/lib/Cake/Controller/Controller.php(488): ReflectionMethod->invokeArgs(Object(TournamentsController), Array)
-#7 /srv/http/cake/lib/Cake/Routing/Dispatcher.php(103): Controller->invokeAction(Object(CakeRequest))
-#8 /srv/http/cake/lib/Cake/Routing/Dispatcher.php(85): Dispatcher->_invoke(Object(TournamentsController), Object(CakeRequest), Object(CakeResponse))
-#9 /srv/http/cake/app/webroot/index.php(98): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
-#10 {main}
